@@ -19,6 +19,9 @@ public class Location {
     TODO: (BONUS) RESET EACH LOCATION AFTER PLAYER LEAVES
     */
 
+    public void setlocatinname(String name) {
+        this.name = name;
+    }
     public String getName() {
         return name;
     }
@@ -29,5 +32,8 @@ public class Location {
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+    public void resetLocation() {
+        enemies.clear();
     }
 }

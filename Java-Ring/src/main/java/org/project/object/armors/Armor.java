@@ -1,7 +1,9 @@
 package org.project.object.armors;
+import org.project.entity.Entity;
+import org.project.object.GameObject;
 
 // TODO: UPDATE IMPLEMENTATION
-public abstract class Armor {
+public abstract class Armor implements GameObject{
     private int defense;
     private int maxDefense;
     private int durability;
@@ -26,6 +28,14 @@ public abstract class Armor {
         isBroke = false;
         defense = maxDefense;
         durability = maxDurability;
+    }
+
+    public void use(Entity target) {
+    }
+    public void useArmor() {
+        if (durability > 0) {
+            durability -= 10;
+        }
     }
 
     public int getDefense() {

@@ -1,5 +1,7 @@
 package org.project.entity;
 
+import java.lang.foreign.SymbolLookup;
+
 public interface Entity {
     void attack(Entity target);
 
@@ -15,7 +17,12 @@ public interface Entity {
 
     int getMaxMP();
 
+    boolean alive();
     /*
     TODO: ADD OTHER REQUIRED AND BONUS METHODS
     */
+    int getHp();
+    String getName();
+    void Ability (Entity entity);
+    void setHp(int hp);
 }
