@@ -9,8 +9,15 @@ public class Flask {
     */
 
     // TODO: (BONUS) UPDATE USE METHOD
-    @Override
+//    @Override
     public void use(Entity target) {
-        target.heal(target.getMaxHP() / 10);
+        System.out.println("🧪 Flask use called for " + target.getName() + " with HP: " + target.getHp());
+
+        if (target.getHp() == 10) {
+            target.heal(30);
+            System.out.println(target.getName() + " used flask!");
+        } else {
+            System.out.println("❌ Flask condition not met. HP: " + target.getHp());
+        }
     }
 }

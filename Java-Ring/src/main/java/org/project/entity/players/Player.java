@@ -5,7 +5,7 @@ import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
 // TODO: UPDATE IMPLEMENTATION
-public abstract class Player {
+public abstract class Player implements Entity{
     protected String name;
     Weapon weapon;
     Armor armor;
@@ -14,11 +14,12 @@ public abstract class Player {
     private int mp;
     private int maxMP;
 
-    public Player(String name, int hp, int mp, Weapon weapon, Armor armor) {
+    public Player(String name, int hp, int mp, Weapon weapon, Armor armor, int maxHP, int maxMP) {
         this.name = name;
         this.hp = hp;
         this.mp = mp;
-
+        this.maxHP = hp;
+        this.maxMP = mp;
         this.weapon = weapon;
         this.armor = armor;
     }
@@ -36,8 +37,19 @@ public abstract class Player {
     // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
     @Override
     public void takeDamage(int damage) {
-        hp -= damage - armor.getDefense();
+        if (armor != null) {
+            armor.useArmor();
+            damage -= armor.getDefense();
+            if (armor.getDurability() <= 0) {
+                armor = null;
+                System.out.println("Armor is broken!");
+            }
+        }
+        if (damage > 0) {
+            hp -= damage;
+        }
     }
+
 
     @Override
     public void heal(int health) {
@@ -61,6 +73,10 @@ public abstract class Player {
     }
 
     public int getHp() {
+        if(hp<=0)
+        {
+            return 0;
+        }
         return hp;
     }
 
@@ -73,9 +89,22 @@ public abstract class Player {
         return mp;
     }
 
+    public void setMp(int mp) {
+        if(mp <0){
+            mp = 0;
+        }
+        this.mp = mp;
+    }
     @Override
     public int getMaxMP() {
         return maxMP;
+    }
+
+    public boolean alive () {
+        if (hp <= 0) {
+            return false;
+        }
+        return true;
     }
 
     public Weapon getWeapon() {
@@ -86,4 +115,15 @@ public abstract class Player {
         return armor;
     }
 
+    public abstract void Ability(Entity entity);
+
+    public void takeDamageIgnoreArmor(int damage) {
+        this.hp -= damage;
+        System.out.println(getName() + " took " + damage + " damage ignoring armor!");
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 }
